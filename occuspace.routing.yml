@@ -1,0 +1,7 @@
+occuspace.admin_settings:
+  path: '/admin/config/system/occuspace'
+  defaults:
+    _form: '\Drupal\occuspace\Form\OccuspaceSettingsForm'
+    _title: 'Occuspace Module Settings'
+  requirements:
+    _permission: 'administer site configuration'

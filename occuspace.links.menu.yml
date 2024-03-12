@@ -1,0 +1,5 @@
+system.occuspace_admin_settings:
+  title: 'Occuspace'
+  parent: system.admin_config_system
+  route_name: occuspace.admin_settings
+  description: 'Configure Occuspace settings.'
