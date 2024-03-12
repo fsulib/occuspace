@@ -1,0 +1,22 @@
+{
+  "name": "fsulib/occuspace",
+  "description": "A Drupal module for interacting with the Occuspace API.",
+  "type": "drupal-custom-module",
+  "keywords": [
+    "Drupal"
+  ],
+  "homepage": "https://github.com/fsulib/occuspace",
+  "license": "GPL-2.0+",
+  "authors": [
+    {
+      "name": "Mason Hall",
+      "email": "mrhall@fsu.edu",
+      "role": "Maintainer"
+    },
+    {
+      "name": "Bryan Brown",
+      "email": "bjbrown@fsu.edu",
+      "role": "Maintainer"
+    }
+  ]
+}
