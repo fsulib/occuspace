@@ -54,43 +54,53 @@ public function build() {
       ],
     ]);
     try {
-        $response = $client->request('GET', 'https://api.occuspace.io/v1/location/3118/now');
-        $responseData = json_decode($response->getBody(), true);
+      $response = $client->request('GET', 'https://api.occuspace.io/v1/location/3118/now');
+      $responseData = json_decode($response->getBody(), true);
 
-        // Check if the response contains the required data
-        if (isset($responseData['data'])) {
-            $data = $responseData['data'];
-            $items = [
-                'Name: ' . $data['name'],
-                'Count: ' . $data['count'],
-                'Percentage: ' . ($data['percentage'] * 100) . '%',
-                'Timestamp: ' . $data['timestamp'],
-                'Is Active: ' . ($data['isActive'] ? 'Yes' : 'No'),
-            ];
+      // Check if the response contains the required data
+      if (isset($responseData['data'])) {
+        $data = $responseData['data'];
+        $items = [
+          'Name: ' . $data['name'],
+          'Count: ' . $data['count'],
+          'Percentage: ' . ($data['percentage'] * 100) . '%',
+          'Timestamp: ' . $data['timestamp'],
+          'Is Active: ' . ($data['isActive'] ? 'Yes' : 'No'),
+        ];
 
-            // Handling child counts
-            if (!empty($data['childCounts'])) {
-                foreach ($data['childCounts'] as $child) {
-                    $items[] = '---';
-                    $items[] = 'Child Name: ' . $child['name'];
-                    $items[] = 'Child Count: ' . $child['count'];
-                    $items[] = 'Child Percentage: ' . ($child['percentage'] * 100) . '%';
-                    $items[] = 'Child Is Active: ' . ($child['isActive'] ? 'Yes' : 'No');
-                }
-            }
-
-            return [
-                '#theme' => 'item_list',
-                '#items' => $items,
-                '#title' => $this->t('Location Data'),
-            ];
-        } else {
-            return ['#markup' => $this->t('No data found in API response.')];
+        // Handling child counts
+        if (!empty($data['childCounts'])) {
+          foreach ($data['childCounts'] as $child) {
+            $items[] = '---';
+            $items[] = 'Child Name: ' . $child['name'];
+            $items[] = 'Child Count: ' . $child['count'];
+            $items[] = 'Child Percentage: ' . ($child['percentage'] * 100) . '%';
+            $items[] = 'Child Is Active: ' . ($child['isActive'] ? 'Yes' : 'No');
+          }
         }
-		} catch (\Exception $e) {
-			return [
-				'#markup' => $this->t('Failed to fetch API data: @message', ['@message' => $e->getMessage()]),
-			];
-		}
-	}
+
+        return [
+          '#theme' => 'item_list',
+          '#items' => $items,
+          '#title' => $this->t('Location Data'),
+        ];
+      } 
+      else {
+        return ['#markup' => $this->t('No data found in API response.')];
+      }
+    } 
+    catch (\Exception $e) {
+      return [
+        '#markup' => $this->t('Failed to fetch API data: @message', ['@message' => $e->getMessage()]),
+      ];
+    }
+  }
+
+  /**
+   * @return int
+   */
+  public function getCacheMaxAge() {
+    return 0;
+  }
+
 }
