@@ -47,7 +47,6 @@ class OccuspaceBlock extends BlockBase implements ContainerFactoryPluginInterfac
 public function build() {
     $config = \Drupal::config('occuspace.settings');
     $apiToken = $config->get('api_token');
-    \Drupal::logger('occuspace')->info("API token is {$apiToken}");
     $client = $this->httpClientFactory->fromOptions([
       'headers' => [
         'Authorization' => "Bearer {$apiToken}",
